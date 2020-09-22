@@ -6,6 +6,7 @@ namespace PayParkingNS
 {
     public class PayParking
     {
+
         private static string[] parkingLot = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" };
         private static string[] parkingLotTimeStamp = { "", "", "", "", "", "", "", "", "", "" };
 
@@ -51,18 +52,16 @@ namespace PayParkingNS
 
         }
 
-        public Action<string> DisplaySpaces()
+        public string DisplaySpaces()
         {
-            Action<string> write = Console.WriteLine;
-            write("Current parking status:\n");
-
+            string status = "Current parking status:\n";
+            
             for (int i = 0; i < parkingLot.Length; i++)
             {
-                Action<string> write2 = Console.WriteLine;
-                write(" |" + parkingLot[i] + "| ");
+                status += " |" + parkingLot[i] + "| ";
             }
-
-            return write;
+            Console.WriteLine(status);
+            return status;
         }
 
         public void CheckIn()
@@ -133,9 +132,13 @@ namespace PayParkingNS
 
         public bool CheckIfAvailable(string place)
         {
-            if (parkingLot[Convert.ToInt32(place) - 1].Length <= 2)
-                return true;
-            else return false;
+            if (Convert.ToInt32(place) > 0 && Convert.ToInt32(place) <= 10)
+            {
+                if (parkingLot[Convert.ToInt32(place) - 1].Length <= 2)
+                    return true;
+                else return false;
+            }
+            return false;
         }
 
         public string Scan()
